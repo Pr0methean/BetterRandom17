@@ -177,8 +177,7 @@ public class AtomicSeedByteRingBuffer {
 
   public boolean pollAllOrNone(final byte[] dest, final int start, int desiredLength) {
     if (desiredLength > byteSize) {
-      throw new IllegalArgumentException("pollAllOrNone asked for " + desiredLength
-          + " bytes, but capacity is " + byteSize + " bytes");
+      return false; // Read of more than capacity will never succeed
     }
     int actuallyRead = poll(dest, start, desiredLength);
     if (actuallyRead >= desiredLength) {
